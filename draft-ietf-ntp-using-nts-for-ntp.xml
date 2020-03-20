@@ -1286,6 +1286,10 @@ Client -----+---------------------------------+----------------->
         unique value `I` as key-identifier for `K`.
       </t>
       <t>
+        Note that the master AEAD key `K` must be kept secret and must not be
+        used for any other purpose.
+      </t>
+      <t>
         Servers should periodically (e.g., once daily) generate a new pair (I,K)
         and immediately switch to using these values for all newly-generated
         cookies. Following each such key rotation, servers should securely
