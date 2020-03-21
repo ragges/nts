@@ -372,6 +372,13 @@
         Negotiation Extension</xref> is integral to NTS and support for
         it is REQUIRED for interoperability.
       </t>
+      <t>
+        Servers and clients SHOULD support the DNS-ID identifier type, see
+        <xref target="RFC6125">RFC 6125</xref>. Server certificates SHOULD
+        include the DNS-ID identifier type. Clients MUST verify the server's
+        identity, either using the DNS-ID identifier type, or using some
+        other scheme that gives equivalent or better secuity.
+      </t>
     </section>
 
     <section title="The NTS Key Establishment Protocol" anchor="nts-ke">
