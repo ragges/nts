@@ -1241,8 +1241,7 @@ Client -----+---------------------------------+----------------->
           A client MAY automatically re-run the NTS-KE protocol upon forced
           disassociation from an NTP server. In that case, it MUST avoid quickly
           looping between the NTS-KE and NTP servers by rate limiting the
-          retries using, for example, exponential retry intervals. A reasonable
-          maximum retry interval could be 7 days, depending on the application.
+          retries using, for example, exponential retry intervals, see below.
         </t>
         <t>
           Upon reception of the NTS NAK kiss code, the client SHOULD wait until
@@ -1261,6 +1260,27 @@ Client -----+---------------------------------+----------------->
           other necessary parameters on persistent storage. This way, the client
           is able to resume the NTP session without performing renewed NTS-KE
           negotiation.
+        </t>
+        <t>
+          To make sure to not unneccesarily overload the NTS-KE server, the
+          client MUST keep track of if it is in KE backoff state for this server.
+          This is applicable for example when the NTS-KE server does not respond,
+          or if there is a problem with the server system, such as if the client
+          gets trapped in a KE negotiation - NTP KoD loop, or for other similar
+          reasons. Exactly how this should be done depends on the application.
+          RECOMMENDED procedure for use on the Internet or on a typical
+          datacenter, office or home network is the following:
+          Exponential backoff with an exponent of 1.5, a minimum retry interval
+          of 5 minutes, and a maximum retry interval of 7 days is used.
+          The initial backoff timer value is set to 5 minutes. Every time the
+          client talks to the NTS-KE server, it should set itself to be in KE
+          backoff state for this server, and the backoff time should be
+          multiplied by the backoff exponent, up to the maximum retry interval.
+          When the client receives an NTS-protected NTP response that it can
+          verify came from the correct server, it resets itself to not be in KE
+          backoff state, and the backof timer is reset to the initial value.
+          When in KE backoff state, the client must wait at least the time of
+          the backoff timer between retries.
         </t>
       </section>      
     </section>
