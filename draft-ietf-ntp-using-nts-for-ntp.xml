@@ -579,7 +579,9 @@ Client -----+---------------------------------+----------------->
               <t>
                 Error code 2 means &quot;Internal Server Error&quot;. The server
                 MUST respond with this error if it is unable to respond properly
-                due to an internal condition.
+                due to an internal condition. If the client decides to retry the
+                request at a later time, it must obey to the KE backoff rules,
+                see <xref target="protocol-details"/>.
               </t>
             </list>
           </t>
