@@ -1886,6 +1886,17 @@ NTS Authenticator    0x0404]]
           to a compromised cookie encryption key. If another cookie scheme is used,
           there are likely similar considerations for that particular scheme.
         </t>
+        <t>
+          If the secret key for the certificate used for TLS on the KE server
+          has been compromised, the KE server may have been impersonated using a
+          rough KE server, and possibly with a corresponding rough NTP
+          server. At the least, a new secret key MUST be generated and a
+          corresponding new cerfiticate MUST be acquired, and the compromised
+          certificate SHOULD be recalled. If there also is a rough NTP server,
+          either that rough NTP server SHOULD be taken offline long enough for the
+          client cookie caches to be exhausted, or the clients SHOULD be triggered
+          to initiate a new KE negotiation by other means.
+        </t>
       </section>
       <section title="Sensitivity to DDoS Attacks">
         <t>
