@@ -1241,8 +1241,7 @@ Client -----+---------------------------------+----------------->
           A client MAY automatically re-run the NTS-KE protocol upon forced
           disassociation from an NTP server. In that case, it MUST avoid quickly
           looping between the NTS-KE and NTP servers by rate limiting the
-          retries using, for example, exponential retry intervals. A reasonable
-          maximum retry interval could be 7 days, depending on the application.
+          retries using, for example, exponential retry intervals, see below.
         </t>
         <t>
           Upon reception of the NTS NAK kiss code, the client SHOULD wait until
@@ -1261,6 +1260,24 @@ Client -----+---------------------------------+----------------->
           other necessary parameters on persistent storage. This way, the client
           is able to resume the NTP session without performing renewed NTS-KE
           negotiation.
+        </t>
+	<t>
+          The client MUST have a mechanism for not unneccesarily overloading the
+          NTS-KE server, in case of a problem where the client would repeatedly
+          try to contact the server or the servers. The exakt workings of this
+          will be dependent on the application, and operational experiance will
+          be gathered over time. Until better knowledge is available, the
+          following may be a reasonable attempt for such a mechanism. The client
+          uses exponential backoff, with an initial and minimum retry interval
+          of 5 minutes, a maximum retry interval of 7 days, and an exponent for
+          the backoff of 1.5. Between any attempts to contact the NTS-KE server,
+          the client must wait at least the time of the current retry interval,
+          and it must increase the time interval by the exponent after each
+          attempt, successfull or not. Only when the client receives a verified
+          response from the NTP server associated with this KE-server, and only
+          if the corresponding request used a cookie that it got from the NTS-KE
+          server, is it allowed to reset the retry interval to the the initial
+          value of 5 minutes.
         </t>
       </section>      
     </section>
