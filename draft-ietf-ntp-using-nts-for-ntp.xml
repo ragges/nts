@@ -1273,11 +1273,11 @@ Client -----+---------------------------------+----------------->
           the backoff of 1.5. Between any attempts to contact the NTS-KE server,
           the client must wait at least the time of the current retry interval,
           and it must increase the time interval by the exponent after each
-          attempt, successfull or not. Only when the client receives a verified
-          response from the NTP server associated with this KE-server, and only
-          if the corresponding request used a cookie that it got from the NTS-KE
-          server at the last attempt to talk to it, is it allowed to reset the
-          retry interval to the initial value of 5 minutes.
+          attempt, successfull or not. Only after a sucessfull negotiation with
+          NTS-KE server, with a following successfull round of NTP request and
+          response using the cookies from the last NTS-KE negotiation, is the
+          client allowed to reset the retry interval to the initial value of
+          5 minutes.
         </t>
       </section>      
     </section>
