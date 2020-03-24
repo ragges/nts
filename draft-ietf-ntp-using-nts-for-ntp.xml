@@ -1276,8 +1276,8 @@ Client -----+---------------------------------+----------------->
           attempt, successfull or not. Only when the client receives a verified
           response from the NTP server associated with this KE-server, and only
           if the corresponding request used a cookie that it got from the NTS-KE
-          server, is it allowed to reset the retry interval to the the initial
-          value of 5 minutes.
+          server at the last attempt to talk to it, is it allowed to reset the
+          retry interval to the initial value of 5 minutes.
         </t>
       </section>      
     </section>
